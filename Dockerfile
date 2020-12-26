@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 
 RUN apt-get update && apt-get install -y python3 && \
     apt-get install -y python3-pip && \
@@ -10,8 +10,7 @@ RUN apt-get update && apt-get install -y python3 && \
 
 RUN pip install numpy==1.18.5 scipy six==1.15.0 wheel
 
-COPY jaxlib-*.whl /tmp/
-RUN pip install /tmp/jaxlib-*.whl
+RUN pip install --upgrade jax jaxlib==0.1.57+cuda110 -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
 RUN apt-get install -y wget git
 WORKDIR /root
